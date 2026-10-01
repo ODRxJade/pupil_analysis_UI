@@ -35,7 +35,7 @@ export default function AnalysisPage() {
   const { signal, results, statuses } = useSessionResults()
 
   if (!session) return <Skeleton className="m-6 h-96" />
-  if (job?.status !== "ready" && !session.predictionsAvailable)
+  if (job?.status !== "ready" && !session.predictionsProvided)
     return (
       <div className="flex flex-col">
         <PageHeader title="Analysis" />
@@ -89,7 +89,7 @@ function Workspace({ title }: { title: string }) {
     const low = results.liveQuality.low
     for (let k = 1; k < signal.frameCount; k++) {
       const f = (playback.frame + k) % signal.frameCount
-      if (low[f]) return playback.seek(f)
+      if (low[f]) return playback.setFrame(f)
     }
     toast.info("No low-confidence frames at the current threshold")
   }
@@ -174,7 +174,7 @@ function Workspace({ title }: { title: string }) {
             results={results}
             analysis={analysis}
             frame={playback.frame}
-            onSeek={playback.seek}
+            onSeek={playback.setFrame}
             onToggleTrial={(i, ex) => mutateAnalysis((s) => api.setTrialExclusion(s, i, ex ? "Excluded by researcher" : null))}
           />
         </div>

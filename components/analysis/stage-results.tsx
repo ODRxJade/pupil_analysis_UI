@@ -185,7 +185,7 @@ export function StageResults({
   }
 }
 
-function SummaryChart({ stimuli }: { stimuli: StimulusSummary[] }) {
+export function SummaryChart({ stimuli }: { stimuli: StimulusSummary[] }) {
   const W = 640
   const H = 220
   const pad = { l: 40, r: 12, t: 10, b: 24 }
@@ -229,7 +229,7 @@ function SummaryChart({ stimuli }: { stimuli: StimulusSummary[] }) {
   )
 }
 
-function Stats({ items }: { items: [string, string][] }) {
+export function Stats({ items }: { items: [string, string][] }) {
   return (
     <dl className="grid grid-cols-2 gap-3 md:grid-cols-3">
       {items.map(([k, v]) => (
@@ -242,7 +242,7 @@ function Stats({ items }: { items: [string, string][] }) {
   )
 }
 
-function EventTable({ rows, head, onSeek }: { rows: { id: number; frame: number; cells: string[] }[]; head: string[]; onSeek: (f: number) => void }) {
+export function EventTable({ rows, head, onSeek }: { rows: { id: number; frame: number; cells: string[] }[]; head: string[]; onSeek: (f: number) => void }) {
   if (!rows.length) return null
   return (
     <Panel bodyClassName="max-h-64 overflow-auto">
@@ -286,13 +286,13 @@ export function runsOf(mask: ArrayLike<number>): [number, number][] {
   return out
 }
 
-function count(a: ArrayLike<number>) {
+export function count(a: ArrayLike<number>) {
   let n = 0
   for (let i = 0; i < a.length; i++) if (a[i]) n++
   return n
 }
 
-function med(a: Float64Array) {
+export function med(a: Float64Array) {
   const f = Array.from(a).filter(Number.isFinite).sort((x, y) => x - y)
   return f.length ? f[Math.floor(f.length / 2)] : NaN
 }
